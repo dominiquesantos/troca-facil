@@ -1,54 +1,73 @@
-<<<<<<< HEAD
-# Welcome to your Expo app 👋
+Troca Fácil — Aplicativo Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Desenvolvimento de uma interface gráfica mobile para uma aplicação de blogging, utilizando React Native. O objetivo é oferecer uma aplicação acessível, intuitiva e de fácil navegação, proporcionando uma experiência de usuário fluida tanto para docentes (professores) quanto para estudantes.
 
-## Get started
+🚀 Funcionalidades Implementadas
 
-1. Install dependencies
+Tela de Login
 
-   ```bash
-   npm install
-   ```
+Tela Home do Professor
 
-2. Start the app
+Listagem de posts cadastrados
 
-   ```bash
-   npx expo start
-   ```
+Criação de novos posts
 
-In the output, you'll find options to open the app in a
+Edição de posts 
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Exclusão de posts (em desenvolvimento)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Salvamento de posts (em desenvolvimento)
 
-## Get a fresh project
+Outras telas (em desenvolvimento)
 
-When you're ready, run:
+🛠️ Tecnologias Utilizadas
 
-```bash
-npm run reset-project
-```
+React Native
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+TypeScript
 
-## Learn more
+React Navigation
 
-To learn more about developing your project with Expo, look at the following resources:
+Context API
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+TrocaFacil/
+├── app/
+│   └── screens/
+│       ├── Login.tsx
+│       ├── Home.tsx
+│       ├── CreatePost.tsx
+│       └── EditPost.tsx
+├── components/
+│   └── PostCard.tsx
+├── context/
+│   ├── AuthContext.tsx
+│   └── PostContext.tsx
+├── routes/
+│   └── app.routes.tsx
+│   └── index.tsx
+├── App.tsx
 
-## Join the community
+Como Rodar o Projeto
 
-Join our community of developers creating universal apps.
+Clone este repositório:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-=======
-# fase04
->>>>>>> 043b3b4e431bc2e868d568ea290daa3f76a6de83
+git clone https://github.com/seu-usuario/troca-facil.git
+
+cd troca-facil
+
+Instale as dependências:
+
+npm install
+
+Rode com Expo:
+
+npx expo start
+
+Desafios Enfrentados:
+
+Durante a tentativa de melhorias, um dos principais desafios foi a navegação após o login. A proposta original era que, ao realizar o login corretamente, o professor fosse redirecionado automaticamente para a tela Home.
+Apesar das diversas tentativas a tela de login continuava sendo exibida.
+
+👩‍💻 Autora Dominique Santos
+
+GitHub: @dominiquesantos
