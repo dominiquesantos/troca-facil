@@ -1,121 +1,36 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from "expo-linear-gradient";
-import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useAuth } from '../../../context/AuthContext';
+import { RootStackParamList } from '../../../navigation/AppNavigator';
 
 export default function Login() {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const navigation = useNavigation()
+  const { login } = useAuth();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [username, setUsername] = useState('');
 
-  const handleButtonPress = () => {
-    Alert.alert(
-      'Credenciais Digitadas',
-    `Usuário: ${user}\nSenha: ${password}`,
-    [
-      {
-        text: 'OK',
-        onPress: () => console.log('OK Pressed'),
-        style: 'cancel',
-      
-      },
-    ],
-    { cancelable: true} 
-    );
-
-    navigation.navigate('screens/Home/index', {userName: user}) 
+  const handleLogin = () => {
+    login();
+    navigation.navigate('Home');
   };
 
   return (
-    <LinearGradient
-      colors={['#F8F7FF', '#FFEBD6', '#FFDBC2']}
-      style={styles.gradient}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>Troca Fácil</Text>
-
-        <Text style={styles.label}>Digite seu usuário:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUser}
-          value={user}
-          placeholder="Usuário"
-          placeholderTextColor="#999"
-        />
-
-        <Text style={styles.label}>Digite sua senha:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Senha"
-          secureTextEntry
-          placeholderTextColor="#999"
-        />
-
-        <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-          <Text style={styles.buttonText}>ENVIAR</Text>
-        </TouchableOpacity>
-
-        <StatusBar style="auto" />
-      </View>
-    </LinearGradient>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu nome"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <Button title="Entrar" onPress={handleLogin} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 30,
-  },
-  label: {
-    alignSelf: 'flex-start',
-    marginBottom: 5,
-    fontSize: 14,
-    color: '#333',
-  },
-  input: {
-    height: 44,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    width: '100%',
-    fontSize: 16,
-    backgroundColor: '#fff',
-  },
-  button: {
-    backgroundColor: '#9C85E5',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 10,
-    marginTop: 10,
-    width: '100%',
-    alignItems: 'center',
-    elevation: 2,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+  container: { flex: 1, justifyContent: 'center', padding: 20 },
+  title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
+  input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 20 },
 });

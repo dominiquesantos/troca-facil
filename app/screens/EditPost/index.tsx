@@ -1,107 +1,47 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { usePostContext } from '../../../context/PostContext';
+import { Post } from '../../../types';
+
+type RouteParams = {
+  EditPost: {
+    post: Post;
+  };
+};
 
 export default function EditPost() {
+  const { updatePost, deletePost } = usePostContext();
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<RouteParams, 'EditPost'>>();
+  const { post } = route.params;
+
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [author, setAuthor] = useState(post.author);
+
+  const handleSave = () => {
+    updatePost(post.id, { title, content, author });
+    navigation.goBack();
+  };
+
+  const handleDelete = () => {
+    deletePost(post.id);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Editar Post</Text>
-      <View style={styles.underline} />
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Título</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o título"
-          value="Título exemplo"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Texto</Text>
-        <TextInput
-          style={[styles.input, { height: 120 }]}
-          placeholder="Digite o texto"
-          multiline
-          value="Texto exemplo do post"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Autor</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o nome do autor"
-          value="Prof. Exemplo"
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.saveButton}>
-          <Text style={styles.buttonText}>Salvar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.deleteButton}>
-          <Text style={styles.buttonText}>Excluir</Text>
-        </TouchableOpacity>
-      </View>
+      <TextInput value={title} onChangeText={setTitle} style={styles.input} />
+      <TextInput value={content} onChangeText={setContent} style={styles.input} multiline />
+      <TextInput value={author} onChangeText={setAuthor} style={styles.input} />
+      <Button title="Salvar" onPress={handleSave} color="#4CAF50" />
+      <Button title="Excluir" onPress={handleDelete} color="#FF9800" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginTop: 16,
-  },
-  underline: {
-    height: 3,
-    width: 90,
-    backgroundColor: '#4CAF50',
-    alignSelf: 'center',
-    borderRadius: 2,
-    marginBottom: 24,
-    marginTop: 4,
-  },
-  inputGroup: {
-    marginBottom: 24,
-  },
-  label: {
-    marginBottom: 8,
-    fontWeight: '500',
-    color: '#333',
-  },
-  input: {
-    backgroundColor: '#F8F8F8',
-    borderRadius: 8,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 8,
-  },
-  saveButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 20,
-  },
-  deleteButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-  },
+  container: { padding: 20 },
+  input: { borderWidth: 1, padding: 10, marginBottom: 10, borderRadius: 8 }
 });
